@@ -1890,12 +1890,8 @@ public class SQLServerConnection implements ISQLServerConnection, java.io.Serial
                             .isEmpty())
                             || (!activeConnectionProperties
                                     .getProperty(SQLServerDriverStringProperty.PASSWORD.toString()).isEmpty()))) {
-                if (connectionlogger.isLoggable(Level.SEVERE)) {
-                    connectionlogger.severe(
-                            toString() + " " + SQLServerException.getErrString("R_MSIAuthenticationWithUserPassword"));
-                }
-                throw new SQLServerException(SQLServerException.getErrString("R_MSIAuthenticationWithUserPassword"),
-                        null);
+                activeConnectionProperties.setProperty(SQLServerDriverStringProperty.USER.toString(), "");
+                activeConnectionProperties.setProperty(SQLServerDriverStringProperty.PASSWORD.toString(), "");
             }
 
             if (authenticationString.equalsIgnoreCase(SqlAuthentication.ActiveDirectoryServicePrincipal.toString())
